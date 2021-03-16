@@ -52,7 +52,7 @@ export default class CodeRepoCards extends React.Component {
                             Created: {item.created_at}
                         </div>
                         <div className='code-url'>
-                            <a href="{item.html_url}">View Code</a>
+                            <a href={item.html_url} target='_blank'>View Code</a>
                         </div>
                     </div>
                 )
