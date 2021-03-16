@@ -1,0 +1,41 @@
+.card-container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.code-card {
+    display: block;
+    background: rgba(107, 107, 107, 0.267);
+    padding: .5rem;
+    margin: .5rem;
+    width: 40%;
+    height: 10rem;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: .3s ease all;
+    color: rgb(192, 192, 192);
+}
+
+.code-card:hover {
+    background: rgba(107, 107, 107, 0.367);
+}
+
+.code-card div{
+    margin-bottom: 10px;
+}
+
+.code-title, .code-title a {
+    font-size: 26px;
+    color: rgb(206, 206, 206);
+}
+.code-title a:hover {
+    color: rgb(240, 240, 240);
+}
+.code-url a {
+    color: rgb(216, 216, 216);
+    text-decoration: none;
+}
+.code-url a:hover {
+    color: rgb(235, 235, 235);
+}

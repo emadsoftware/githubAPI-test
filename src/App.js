@@ -1,25 +1,24 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import CodeRepoCards from './components/CodeRepoCards';
 
-function App() {
-  return (
-    <div className="App">
+class App extends React.Component {
+  render() {
+    return <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>
+          IcyRealm's Github Repository
+        </h1>
+        <h2>
+          This repository is automatically generated via React + GitHub API.
+        </h2>   
       </header>
+      <CodeRepoCards></CodeRepoCards>
+      <footer>
+           Version 1.0         
+      </footer>
     </div>
-  );
+  }
 }
 
 export default App;
