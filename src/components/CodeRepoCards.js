@@ -34,9 +34,19 @@ export default class CodeRepoCards extends React.Component {
     }
 
     render(){
+        // Don't show forked repositories
+        var codeArr = this.state.codeData;
+        var i;
+        for (i = codeArr.length - 1; i >= 0; i -= 1) {
+            if (codeArr[i].fork == true) {
+                codeArr.splice(i, 1);
+            }
+        }
+        console.log(codeArr);
         return <div className='card-container'>
             {
-                this.state.codeData.map((item, index) =>                    
+                
+                codeArr.map((item, index) =>                    
                     
                     <div key={index} className='code-card'>                        
                         {/* <div className='code-index'>

@@ -2,11 +2,12 @@ import * as React from 'react';
 import {Bar} from 'react-chartjs-2';
 
 // Generate data
-let myArr = [2,2,3,5,3,2,3];
+// TODO: Get recent commit number by month https://api.github.com/users/icyrealm/events
+let myArr = [10,4,3,5,6,8,3,5,6,7,8,9];
 
 // Render data
 const data = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'],
   datasets: [
     {
       label: 'My Repository History',
@@ -30,7 +31,14 @@ export default class BarComponent extends React.Component{
           width={100}
           height={10}
           options={{
-            maintainAspectRatio: true
+            maintainAspectRatio: true,
+            scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+            }
           }}
         />
       </div>
