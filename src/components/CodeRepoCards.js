@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import './CodeRepoCards.css';
 
 export default class CodeRepoCards extends React.Component {
@@ -49,10 +49,13 @@ export default class CodeRepoCards extends React.Component {
                             Description: {item.description}
                         </div>
                         <div className='code-date'>
-                            Created: {item.created_at}
+                            Created: {new Date(item.created_at).toLocaleDateString()}
+                        </div>
+                        <div className='code-size'>
+                            Size: {item.size.toLocaleString()} KB
                         </div>
                         <div className='code-url'>
-                            <a href={item.html_url} target='_blank'>View Code</a>
+                            <a href={item.html_url} rel="noreferrer" target='_blank'>View Code</a> - {item.homepage ? <a href={item.homepage} target='_blank' rel="noreferrer">View Demo</a> : <s>View Demo</s>}
                         </div>
                     </div>
                 )

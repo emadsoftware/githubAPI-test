@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import CodeRepoCards from './components/CodeRepoCards';
+import BarComponent from './components/BarComponent';
 
 class App extends React.Component {
   render() {
@@ -13,6 +14,7 @@ class App extends React.Component {
           This repository is automatically generated via React + GitHub API.
         </h2>   
       </header>
+      <BarComponent></BarComponent>
       <CodeRepoCards></CodeRepoCards>
       <footer>
            Version 1.0         
