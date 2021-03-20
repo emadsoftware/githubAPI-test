@@ -8,7 +8,7 @@ class App extends React.Component {
     return <div className="App">
       <header className="App-header">
         <h1>
-          IcyRealm's Github Repository
+          Github Repository Analyzer
         </h1>
         <h2>
           This repository is automatically generated via React + GitHub API.

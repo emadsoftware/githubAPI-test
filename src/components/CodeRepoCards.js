@@ -4,10 +4,23 @@ import './CodeRepoCards.css';
 export default class CodeRepoCards extends React.Component {
     constructor(props){
         super(props);
+        this.handleChange = this.handleChange.bind(this);
         this.state = {
-            codeData: []
+            codeData: [],
+            responseShown: [],
+            user: 'icyrealm',
+            cardsToShow: '10'
         };
     }
+
+    handleChange(e) {
+        console.log("HC - " + e.target.value);
+        this.setState({             
+            user: e.target.value
+        }, () => {
+            this.getData();
+        });
+    } 
 
     async componentDidMount(){
         this.getData();
@@ -15,7 +28,7 @@ export default class CodeRepoCards extends React.Component {
 
     async getData(){
         // get
-        const url = 'https://api.github.com/users/icyrealm/repos';
+        const url = 'https://api.github.com/users/'+this.state.user+'/repos';
         const response = await fetch(url);
         const data = await response.json();
 
@@ -28,8 +41,15 @@ export default class CodeRepoCards extends React.Component {
             console.log("Data could not be parsed.");     
         }
 
+        if (!Array.isArray(dataArr)){
+            dataArr = [];
+        }
+
+
         this.setState({
-            codeData: dataArr
+            codeData: dataArr,
+            responseShown: dataArr.slice(0,this.state.cardsToShow)
+        
         });
     }
 
@@ -44,6 +64,15 @@ export default class CodeRepoCards extends React.Component {
         }
         console.log(codeArr);
         return <div className='card-container'>
+                  <div className="group">
+                                <label>User: </label>
+                                <input
+                                    type="text"
+                                    id="markdown-content"
+                                    onChange={this.handleChange}
+                                    defaultValue={this.state.user}
+                                />
+                </div>
             {
                 
                 codeArr.map((item, index) =>                    
