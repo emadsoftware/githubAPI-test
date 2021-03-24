@@ -32,6 +32,12 @@ export default class CodeRepoCards extends React.Component {
         const response = await fetch(url);
         const data = await response.json();
 
+        // log api call imit
+        const urlLimit = 'https://api.github.com/rate_limit';
+        const responseLimit = await fetch(urlLimit);
+        const dataLimit = await responseLimit.json();
+        console.log(dataLimit);
+
         // set
         let dataArr = [];
         try {
@@ -45,11 +51,9 @@ export default class CodeRepoCards extends React.Component {
             dataArr = [];
         }
 
-
         this.setState({
             codeData: dataArr,
             responseShown: dataArr.slice(0,this.state.cardsToShow)
-        
         });
     }
 
@@ -62,7 +66,16 @@ export default class CodeRepoCards extends React.Component {
                 codeArr.splice(i, 1);
             }
         }
-        console.log(codeArr);
+
+        // Add new object to array: freshness
+        for (i = codeArr.length - 1; i >= 0; i -= 1) {
+            const date1 = new Date();
+            const date2 = new Date(codeArr[i].updated_at);            
+            const diffTime = Math.abs(date2 - date1);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+            codeArr[i].freshness = diffDays;                           
+        }
+        
         return <div className='card-container'>
                   <div className="group">
                                 <label>User: </label>
@@ -73,6 +86,10 @@ export default class CodeRepoCards extends React.Component {
                                     defaultValue={this.state.user}
                                 />
                 </div>
+            {
+                console.log("1"), 
+                console.log("2")}          
+
             {
                 
                 codeArr.map((item, index) =>                    
@@ -87,9 +104,12 @@ export default class CodeRepoCards extends React.Component {
                         <div className='code-description'>
                             Description: {item.description}
                         </div>
-                        <div className='code-date'>
+                        <div className='code-date-created'>
                             Created: {new Date(item.created_at).toLocaleDateString()}
                         </div>
+                        <div className='code-date-modified'>
+                            Modified: {new Date(item.updated_at).toLocaleDateString()}, {item.freshness} days ago
+                        </div>                        
                         <div className='code-size'>
                             Size: {item.size.toLocaleString()} KB
                         </div>
@@ -103,4 +123,12 @@ export default class CodeRepoCards extends React.Component {
     }
 
 }
+
+// IDEAS for BASIC data visualization (start small bro)
+// Average size of all repos, compare each repo size to that
+// Time / freshness of each repo (creation date vs last modified)
+// Generate graphs for only the first 6-9 repos
+/// file size (easy)
+/// freshness (last modified -- medium difficulty)
+/// number of commits (difficult)
 
