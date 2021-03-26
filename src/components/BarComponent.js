@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {Bar} from 'react-chartjs-2';
+import {Bar, Doughnut, Line} from 'react-chartjs-2';
+
 
 export default class BarComponent extends React.Component{  
   constructor(props){
@@ -79,43 +80,75 @@ export default class BarComponent extends React.Component{
       labels: this.state.graphXData,
       datasets: [
         {
-          label: 'My Repository History',
-          backgroundColor: 'rgba(255,99,132,0.2)',
-          borderColor: 'rgba(255,99,132,1)',
+          label: 'Days since last commit',
+          backgroundColor: 'rgba(185, 198, 255,0.2)',
+          borderColor: 'rgba(185, 198, 255,1)',
           borderWidth: 1,
-          hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-          hoverBorderColor: 'rgba(255,99,132,1)',
+          hoverBackgroundColor: 'rgba(185, 198, 255,0.4)',
+          hoverBorderColor: 'rgba(185, 198, 255,1)',
           data: this.state.graphYData
+          
         }
       ]
     };
 
     return (
-      <div> 
-        <Bar
-          data={data}
-          width={100}
-          height={20}
-          options={{
-            maintainAspectRatio: true,
-            scales: {
-              yAxes: [{
-                  ticks: {
-                      beginAtZero: true
-                  }, scaleLabel: {
+      <div className="charts-container">
+        <div> 
+          <Bar
+            data={data}
+            width={100}
+            height={50}
+            options={{
+              maintainAspectRatio: true,
+              scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }, scaleLabel: {
+                      display: true,
+                      labelString: 'Days Since Last Commit'
+                    }
+                }], xAxes: [{
+                  scaleLabel: {
                     display: true,
-                    labelString: 'Freshness'
+                    labelString: 'Code Repository'
                   }
-              }], xAxes: [{
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Code Repository'
-                }
-            }]
-            }
-          }}
-        />
-      </div>
+              }]
+              }
+            }}
+          />
+        </div>
+
+        <div> 
+            <Doughnut
+            data={data}
+            width={100}
+            height={50}
+            options={{
+              maintainAspectRatio: true,
+              scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }, scaleLabel: {
+                      display: true,
+                      labelString: 'Freshness'
+                    }
+                }], xAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Code Repository'
+                  }
+              }]
+              }
+            }}
+          />
+        </div>
+
+       
+    </div>
+      
     );
   }
 };

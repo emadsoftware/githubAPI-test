@@ -1,4 +1,4 @@
-.card-container{
+.code-card-container{
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -10,15 +10,14 @@
     padding: 1rem;
     box-shadow: 1px 1px 5px #202125;
     margin: 1rem;
-    width: 45%;
-    margin: auto;
+    width: 44%;
     min-height: 12rem;
-    margin-bottom: 1rem;
     border-radius: 5px;
     font-size: 15px;
     letter-spacing: -.5px;
     transition: .3s ease all;
     color: rgb(192, 192, 192);
+    flex: auto;
 }
 
 .code-card:hover {
@@ -51,4 +50,6 @@
     width: -webkit-fill-available;
     padding-left: 1.5rem;
     padding-bottom: 1rem;
+    /* color: rgba(99, 128, 255, 0.2); */
 }
+

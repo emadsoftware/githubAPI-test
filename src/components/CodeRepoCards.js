@@ -90,45 +90,47 @@ export default class CodeRepoCards extends React.Component {
                 console.log("1"), 
                 console.log("2")}          
 
-            {
-                
-                codeArr.map((item, index) =>                    
-                    
-                    <div key={index} className='code-card'>                        
-                        {/* <div className='code-index'>
-                            {index+1}
-                        </div> */}
-                        <div className='code-title'>
-                            {item.name}
-                        </div>                        
-                        <div className='code-description'>
-                            Description: {item.description}
+            <div className="code-card-container">
+                {                    
+                    codeArr.map((item, index) =>                    
+                        
+                        <div key={index} className='code-card'>                        
+                            {/* <div className='code-index'>
+                                {index+1}
+                            </div> */}
+                            <div className='code-title'>
+                                {item.name}
+                            </div>                        
+                            <div className='code-description'>
+                                Description: {item.description}
+                            </div>
+                            <div className='code-date-created'>
+                                Created: {new Date(item.created_at).toLocaleDateString()}
+                            </div>
+                            <div className='code-date-modified'>
+                                Modified: {new Date(item.updated_at).toLocaleDateString()}, {item.freshness} days ago
+                            </div>                        
+                            <div className='code-size'>
+                                Size: {item.size.toLocaleString()} KB
+                            </div>
+                            <div className='code-url'>
+                                <a href={item.html_url} rel="noreferrer" target='_blank'>View Code</a> - {item.homepage ? <a href={item.homepage} target='_blank' rel="noreferrer">View Demo</a> : <s>View Demo</s>}
+                            </div>
                         </div>
-                        <div className='code-date-created'>
-                            Created: {new Date(item.created_at).toLocaleDateString()}
-                        </div>
-                        <div className='code-date-modified'>
-                            Modified: {new Date(item.updated_at).toLocaleDateString()}, {item.freshness} days ago
-                        </div>                        
-                        <div className='code-size'>
-                            Size: {item.size.toLocaleString()} KB
-                        </div>
-                        <div className='code-url'>
-                            <a href={item.html_url} rel="noreferrer" target='_blank'>View Code</a> - {item.homepage ? <a href={item.homepage} target='_blank' rel="noreferrer">View Demo</a> : <s>View Demo</s>}
-                        </div>
-                    </div>
-                )
-            }
+                    )
+                }
+            </div>
         </div>
     }
 
 }
 
 // IDEAS for BASIC data visualization (start small bro)
-// Average size of all repos, compare each repo size to that
-// Time / freshness of each repo (creation date vs last modified)
-// Generate graphs for only the first 6-9 repos
-/// file size (easy)
-/// freshness (last modified -- medium difficulty)
-/// number of commits (difficult)
 
+// 1. Bar: Least updated repo (days since last modified) - arrange bar graph from largest to smallest, (optional: splice to only inc first 3-5, otherwise split graphs by tab to show max i.e. 10 data)
+
+// 2. Doughnut: Size of all repos into doughnut graph
+
+// 3. Area-line-bounary: number of commits (aka contributions) per repository for first user https://api.github.com/repos/icyrealm/icyrealm.github.io/contributors, repositories arranged by date created
+
+// Generate graphs for only the first 6-9 repos

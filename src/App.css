@@ -32,3 +32,11 @@ h2 {
   font-weight: 400;
   margin-left: 10px;
 }
+
+.charts-container{
+  display: flex;
+}
+.charts-container div {
+  width: 50%;
+  display: block;
+}
