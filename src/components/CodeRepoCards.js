@@ -25,9 +25,18 @@ export default class CodeRepoCards extends React.Component {
         this.getData(2);
     }
 
-    async getData(callType){
+    componentDidUpdate(prevProps){
+        if(prevProps.name !== this.props.name){
+            this.setState({          
+                user: this.props.name
+            });
+        }
+        this.getData();
+      }
+
+    async getData(){
         // get
-        const url = 'https://api.github.com/users/'+this.state.user+'/repos';
+        const url = 'https://api.github.com/users/'+this.props.name+'/repos';
         const response = await fetch(url);
         const data = await response.json();
 
@@ -76,19 +85,7 @@ export default class CodeRepoCards extends React.Component {
             codeArr[i].freshness = diffDays;                           
         }
         
-        return <div className='card-container'>
-                  <div className="group">
-                                <label>User: </label>
-                                <input
-                                    type="text"
-                                    id="markdown-content"
-                                    onChange={this.handleChange}
-                                    defaultValue={this.state.user}
-                                />
-                </div>
-            {
-                console.log("1"), 
-                console.log("2")}          
+        return <div className='card-container'>       
 
             <div className="code-card-container">
                 {                    

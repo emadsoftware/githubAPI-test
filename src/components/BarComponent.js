@@ -30,7 +30,7 @@ export default class BarComponent extends React.Component{
         });
     }
     this.randomCode();
-}
+  }
 
   // 
   async randomCode(){
@@ -120,7 +120,7 @@ export default class BarComponent extends React.Component{
 
     return (
       <div className="charts-container">
-        {this.props.name}
+        
         <div> 
           <Bar
             data={dataCommitDays}
