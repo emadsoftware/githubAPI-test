@@ -3,34 +3,43 @@ import {Bar, Doughnut, Line} from 'react-chartjs-2';
 
 
 export default class BarComponent extends React.Component{  
+
+  // Initialize variables
   constructor(props){
     super(props);
     this.randomCode = this.randomCode.bind(this);
     this.state = {
-        codeData: [],
-        responseShown: [],
         user: 'icyrealm',
         maxGraphItems: '10',
         graphXData: [],
-        graphYData: [10,4,3,5,6,8,3,5,6,7,8,10]
+        graphYDataFreshness: [10,4,3,5,6,8,3,5,6,7,8,10],
+        graphYDataSize: [1,2,3,4,5,6,7,8,9,10]
     };
+
   }
 
+  // Called after component is rendered, call randomCode
   async componentDidMount(){
     this.randomCode();
-  }  
+  }
 
+  componentDidUpdate(prevProps){
+    if(prevProps.name !== this.props.name){
+        this.setState({          
+            user: this.props.name
+        });
+    }
+    this.randomCode();
+}
+
+  // 
   async randomCode(){
-    // Generate data
-    // TODO: Get recent commit number by month https://api.github.com/users/icyrealm/events
 
-    async function getData1(){
-      // get
-      const url = 'https://api.github.com/users/icyrealm/repos';
+    // Get rest api data
+    async function getApiData(userRepo){
+      const url = 'https://api.github.com/users/'+userRepo+'/repos';
       const response = await fetch(url);
       const data = await response.json();
-
-      // set
       let dataArr = [];
       try {
           dataArr = data;
@@ -41,7 +50,7 @@ export default class BarComponent extends React.Component{
           dataArr = [];
       }
 
-      // Add new object to array: freshness
+      // Append attribute (freshness) to each object (repo) in dataArr
       for (let i = dataArr.length - 1; i >= 0; i -= 1) {
         const date1 = new Date();
         const date2 = new Date(dataArr[i].updated_at);            
@@ -53,30 +62,32 @@ export default class BarComponent extends React.Component{
       return dataArr;
     }
 
+    // Use promise to sequentially append resulting object attributes to state
     const ids = [1];
-    // Clean the arr
-    Promise.all(ids.map(id => getData1(id))).then(results => {
+    Promise.all(ids.map(id => getApiData(this.props.name))).then(results => {
       let resultantArr = results[0];
-      let cleanedArr = [], appendedNumbers = [];
+      let repoNameArr = [], repoFreshnessArr = [], repoSizeArr = [];
       for (let i = 0; i <= this.state.maxGraphItems; i++) {
         try{
-          cleanedArr.push(resultantArr[i].name);
-          appendedNumbers.push(resultantArr[i].freshness);
+          repoNameArr.push(resultantArr[i].name);
+          repoFreshnessArr.push(resultantArr[i].freshness);
+          repoSizeArr.push(resultantArr[i].size);
         } catch (error){
         }
       }
-
-      // Update state
       this.setState({
-        graphXData: cleanedArr,
-        graphYData: appendedNumbers
+        graphXData: repoNameArr,
+        graphYDataFreshness: repoFreshnessArr,
+        graphYDataSize: repoSizeArr
       }); 
     })
+
   }
 
   render() {
-    // Render data
-    const data = {
+
+    // Data Commit Days Object
+    const dataCommitDays = {
       labels: this.state.graphXData,
       datasets: [
         {
@@ -86,17 +97,33 @@ export default class BarComponent extends React.Component{
           borderWidth: 1,
           hoverBackgroundColor: 'rgba(185, 198, 255,0.4)',
           hoverBorderColor: 'rgba(185, 198, 255,1)',
-          data: this.state.graphYData
-          
+          data: this.state.graphYDataFreshness
+        }
+      ]
+    };
+
+    // Data Size Object
+    const dataSize = {
+      labels: this.state.graphXData,
+      datasets: [
+        {
+          label: 'Days since last commit',
+          backgroundColor: 'rgba(185, 198, 255,0.2)',
+          borderColor: 'rgba(185, 198, 255,1)',
+          borderWidth: 1,
+          hoverBackgroundColor: 'rgba(185, 198, 255,0.4)',
+          hoverBorderColor: 'rgba(185, 198, 255,1)',
+          data: this.state.graphYDataSize
         }
       ]
     };
 
     return (
       <div className="charts-container">
+        {this.props.name}
         <div> 
           <Bar
-            data={data}
+            data={dataCommitDays}
             width={100}
             height={50}
             options={{
@@ -122,7 +149,7 @@ export default class BarComponent extends React.Component{
 
         <div> 
             <Doughnut
-            data={data}
+            data={dataSize}
             width={100}
             height={50}
             options={{

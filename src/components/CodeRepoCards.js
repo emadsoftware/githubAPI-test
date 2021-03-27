@@ -14,19 +14,18 @@ export default class CodeRepoCards extends React.Component {
     }
 
     handleChange(e) {
-        console.log("HC - " + e.target.value);
         this.setState({             
             user: e.target.value
         }, () => {
-            this.getData();
+            this.getData(1);
         });
     } 
 
     async componentDidMount(){
-        this.getData();
+        this.getData(2);
     }
 
-    async getData(){
+    async getData(callType){
         // get
         const url = 'https://api.github.com/users/'+this.state.user+'/repos';
         const response = await fetch(url);
@@ -55,6 +54,7 @@ export default class CodeRepoCards extends React.Component {
             codeData: dataArr,
             responseShown: dataArr.slice(0,this.state.cardsToShow)
         });
+
     }
 
     render(){
