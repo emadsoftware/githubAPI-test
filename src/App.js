@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import CodeRepoCards from './components/CodeRepoCards';
 import BarComponent from './components/BarComponent';
+import MetaTags from 'react-meta-tags';
 
 class App extends React.Component {
     // Initialize variables
@@ -22,9 +23,13 @@ class App extends React.Component {
 
   render() {
     return <div className="App">
+       <MetaTags>
+        <title>Github Repository Analyzer App v.1</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+      </MetaTags>
       <header className="App-header">
         <h1>
-          Github Repository Analyzer
+          Github Repository Analyzer App v.1
         </h1>
         <h2>
           This repository is automatically generated via React + GitHub API.

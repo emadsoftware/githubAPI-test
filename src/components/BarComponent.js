@@ -160,7 +160,7 @@ export default class BarComponent extends React.Component{
                         beginAtZero: true
                     }, scaleLabel: {
                       display: true,
-                      labelString: 'Freshness'
+                      labelString: 'Size (KB)'
                     }
                 }], xAxes: [{
                   scaleLabel: {

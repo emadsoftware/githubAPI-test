@@ -13,7 +13,7 @@
     width: 44%;
     min-height: 12rem;
     border-radius: 5px;
-    font-size: 15px;
+    font-size: 1rem;
     letter-spacing: -.5px;
     transition: .3s ease all;
     color: rgb(192, 192, 192);
@@ -29,8 +29,8 @@
 }
 
 .code-title, .code-title a {
-    font-size: 26px;
-    color: rgb(206, 206, 206);
+    font-size: 1.275rem;
+    color: rgb(236 236 236);
 }
 .code-title a:hover {
     color: rgb(240, 240, 240);
@@ -48,8 +48,8 @@
 .group {
     height: fit-content;
     width: -webkit-fill-available;
-    padding-left: 1.5rem;
+    padding-left: 1rem;
     padding-bottom: 1rem;
-    /* color: rgba(99, 128, 255, 0.2); */
+    color: rgb(196 196 196);
 }
 

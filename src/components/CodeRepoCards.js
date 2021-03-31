@@ -131,3 +131,8 @@ export default class CodeRepoCards extends React.Component {
 // 3. Area-line-bounary: number of commits (aka contributions) per repository for first user https://api.github.com/repos/icyrealm/icyrealm.github.io/contributors, repositories arranged by date created
 
 // Generate graphs for only the first 6-9 repos
+
+
+
+
+// 4. Arrange cards by most recently created OR recently modified
