@@ -8,7 +8,7 @@ export default class CodeRepoCards extends React.Component {
         this.state = {
             codeData: [],
             responseShown: [],
-            user: 'icyrealm',
+            user: 'emadsoftware',
             cardsToShow: '10'
         };
     }
@@ -21,7 +21,7 @@ export default class CodeRepoCards extends React.Component {
         });
     } 
 
-    async componentDidMount(){
+    componentDidMount(){
         this.getData(2);
     }
 
@@ -31,7 +31,7 @@ export default class CodeRepoCards extends React.Component {
                 user: this.props.name
             });
         }
-        this.getData();
+        // this.getData();
       }
 
     async getData(){

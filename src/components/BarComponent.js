@@ -18,7 +18,7 @@ export default class BarComponent extends React.Component{
   }
 
   // Called after component is rendered, call randomCode
-  async componentDidMount(){
+  componentDidMount(){
     this.randomCode();
   }
 
@@ -28,14 +28,14 @@ export default class BarComponent extends React.Component{
             user: this.props.name
         });
     }
-    this.randomCode();
+    // this.randomCode();
   }
 
   // 
   async randomCode(){
 
     // Get rest api data
-    async function getApiData(userRepo){
+    const getApiData = async (userRepo) => {
       const url = 'https://api.github.com/users/'+userRepo+'/repos';
       const response = await fetch(url);
       const data = await response.json();
@@ -61,25 +61,26 @@ export default class BarComponent extends React.Component{
       return dataArr;
     }
 
-    // Use promise to sequentially append resulting object attributes to state
-    const ids = [1];
-    Promise.all(ids.map(id => getApiData(this.props.name))).then(results => {
-      let resultantArr = results[0];
-      let repoNameArr = [], repoFreshnessArr = [], repoSizeArr = [];
-      for (let i = 0; i <= this.state.maxGraphItems; i++) {
-        try{
-          repoNameArr.push(resultantArr[i].name);
-          repoFreshnessArr.push(resultantArr[i].freshness);
-          repoSizeArr.push(resultantArr[i].size);
-        } catch (error){
-        }
-      }
+    try {
+      // Use a single promise to get API data
+      const resultantArr = await getApiData(this.props.name);
+
+      // Use slice instead of a loop to get a subset of resultantArr
+      const slicedResult = resultantArr.slice(0, this.state.maxGraphItems);
+
+      // Use map to extract specific properties
+      const repoNameArr = slicedResult.map((repo) => repo.name);
+      const repoFreshnessArr = slicedResult.map((repo) => repo.freshness);
+      const repoSizeArr = slicedResult.map((repo) => repo.size);
+
       this.setState({
         graphXData: repoNameArr,
         graphYDataFreshness: repoFreshnessArr,
-        graphYDataSize: repoSizeArr
-      }); 
-    })
+        graphYDataSize: repoSizeArr,
+      });
+    } catch (error) {
+      console.error("Error fetching or processing data:", error);
+    }
 
   }
 
